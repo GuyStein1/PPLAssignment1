@@ -28,6 +28,10 @@ const returnSquaredIfFoundEven_v1 = (a: number[]): number => {
     }
 }
 
-export const returnSquaredIfFoundEven_v2 : undefined = undefined;
+export const returnSquaredIfFoundEven_v2: (a: number[]) => Result<number> = (a) => {
+    const isEven = (x: number): boolean => x % 2 === 0;
+    const square = (x: number): Result<number> => makeOk(x * x);
+    return bind(findResult(isEven, a), square);
+};
 
 export const returnSquaredIfFoundEven_v3 : undefined = undefined;
