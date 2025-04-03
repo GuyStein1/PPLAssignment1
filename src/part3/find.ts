@@ -8,7 +8,15 @@ const findOrThrow = <T>(pred: (x: T) => boolean, a: T[]): T => {
     throw "No element found.";
 }
 
-export const findResult : undefined = undefined;
+// The findResult function takes a predicate function and an array, and returns a Result type
+export const findResult = <T>(pred: (x: T) => boolean, a: T[]): Result<T> =>
+    a.reduce<Result<T>>(
+        (acc, current) => 
+            // If the accumulator is already an Ok result, return it, Otherwise, check if the current element satisfies the predicate
+            acc.tag === "Ok" ? acc : pred(current) ? makeOk(current) : acc,
+        // Initial value is a Failure result
+        makeFailure("No element found")
+    );
 
 /* Client code */
 const returnSquaredIfFoundEven_v1 = (a: number[]): number => {
