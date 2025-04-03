@@ -21,5 +21,18 @@
   },
   "overrides": {
     "glob": "11.0.1"
-  }  
+  },
+  "main": "jest.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuyStein1/PPLAssignment1.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/GuyStein1/PPLAssignment1/issues"
+  },
+  "homepage": "https://github.com/GuyStein1/PPLAssignment1#readme"
 }
