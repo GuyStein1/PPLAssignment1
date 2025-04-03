@@ -1,16 +1,48 @@
 #lang racket/base
 
+; Signature: last-item : (list) -> Any
+; Type: [List -> Any]
+; Purpose: Return the last item in a given non-empty list.
+; Pre-conditions: The input list is non-empty.
+; Tests:
+; (last-item '(1 2 3)) => 3
+; (last-item '(a b c d)) => d
+
 (define last-item
     (lambda (lst)
-    @todo
-))
+    (if (null? (cdr lst)) ; if no rest after  element, return this element
+        (car lst)
+        (last-item (cdr lst))))) ; otherwise, recurse on the rest
+
+
+; Signature: remove-last-item : (list) -> list
+; Type: [List -> List]
+; Purpose: Returns the given non-empty list without its last item.
+; Pre-conditions: The input list has at least one item.
+; Tests:
+; (remove-last-item '(1 2 3)) => (1 2)
+; (remove-last-item '(a b c d)) => (a b c)
+; (remove-last-item '(hello)) => ()
 
 (define remove-last-item
-    (lambda (lst)
-    @todo
-))
+  (lambda (lst)
+    (if (null? (cdr lst)) ; If it's the last item, return an empty list
+        '()
+        (cons (car lst) (remove-last-item (cdr lst)))))) ; Else, keep building the list recursively
+
+
+; Signature: rotate-nth : (list number) -> list
+; Type: [List * Number -> List]
+; Purpose: Rotate the given list n times to the right.
+; Pre-conditions: n is non-negative, list may be empty.
+; Tests:
+; (rotate-nth '(1 2 3) 1) => (3 1 2)
+; (rotate-nth '(1 2 3 4) 2) => (3 4 1 2)
+; (rotate-nth '(a b c d) 4) => (a b c d) ; rotating len(list) times returns original list
+; (rotate-nth '(x) 3) => (x) ; single-element list stays unchanged
 
 (define rotate-nth
-    (lambda (lst n)
-    @todo
-))
+  (lambda (lst n)
+    (if (or (null? lst) (= n 0))
+        lst
+        (rotate-nth (cons (last-item lst) (remove-last-item lst)) (- n 1)))))
