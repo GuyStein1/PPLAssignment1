@@ -18,7 +18,21 @@ export const countVowels: (str: string) => number = R.pipe(
 
 
 /* Question 2 */
-export const isPalindrome: undefined = undefined;
+
+const isAlphaNum: (c: string) => boolean = (c) => /[a-z0-9]/i.test(c);
+
+const isPalindromeArray: (chars: string[]) => boolean = (chars) => {
+    if (chars.length <= 1) return true;
+    if (R.head(chars) !== R.last(chars)) return false;
+    return isPalindromeArray(R.slice(1, -1, chars));
+  };
+
+export const isPalindrome: (phrase: string) => boolean = R.pipe(
+    stringToArray,
+    R.filter(isAlphaNum),
+    R.map(R.toLower),
+    isPalindromeArray
+);
   
 /* Question 3 */
 export type WordTree = {
@@ -26,4 +40,13 @@ export type WordTree = {
     children: WordTree[];
 }
 
-export const treeToSentence: undefined = undefined;
+// Function to convert a WordTree to a sentence
+// This function recursively traverses the tree and concatenates the words
+export const treeToSentence = (t: WordTree): string => {
+    const childWords = t.children.reduce(
+      (acc: string[], child: WordTree) =>
+        acc.concat(treeToSentence(child).split(" ")),
+      []
+    );
+    return [t.root].concat(childWords).join(" ");
+  };
