@@ -43,6 +43,6 @@
 
 (define rotate-nth
   (lambda (lst n)
-    (if (or (null? lst) (= n 0))
+    (if (or (null? lst) (= n 0)) ; Base case: empty list or no rotations needed
         lst
-        (rotate-nth (cons (last-item lst) (remove-last-item lst)) (- n 1)))))
+        (rotate-nth (cons (last-item lst) (remove-last-item lst)) (- n 1))))) ; Move last item to the front and decrease rotation count
