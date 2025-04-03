@@ -3,5 +3,3 @@ node_modules/
 
 # Ignore the package-lock.json file (optional)
 package-lock.json
-
-package.json
