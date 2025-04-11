@@ -21,11 +21,9 @@ export const countVowels: (str: string) => number = R.pipe(
 
 const isAlphaNum: (c: string) => boolean = (c) => /[a-z0-9]/i.test(c);
 
-const isPalindromeArray: (chars: string[]) => boolean = (chars) => {
-    if (chars.length <= 1) return true;
-    if (R.head(chars) !== R.last(chars)) return false;
-    return isPalindromeArray(R.slice(1, -1, chars));
-  };
+const isPalindromeArray: (chars: string[]) => boolean = (chars) =>
+  chars.length <= 1 || (R.head(chars) === R.last(chars) && isPalindromeArray(R.slice(1, -1, chars)));
+
 
 export const isPalindrome: (phrase: string) => boolean = R.pipe(
     stringToArray,
