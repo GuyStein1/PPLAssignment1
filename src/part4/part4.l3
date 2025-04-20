@@ -6,7 +6,7 @@
 ; Pre-conditions: The input list is non-empty.
 ; Tests:
 ; (last-item '(1 2 3)) => 3
-; (last-item '(a b c d)) => d
+; (last-item '(a b c d)) => 'd
 
 (define last-item
     (lambda (lst)
@@ -20,9 +20,9 @@
 ; Purpose: Returns the given non-empty list without its last item.
 ; Pre-conditions: The input list has at least one item.
 ; Tests:
-; (remove-last-item '(1 2 3)) => (1 2)
-; (remove-last-item '(a b c d)) => (a b c)
-; (remove-last-item '(hello)) => ()
+; (remove-last-item '(1 2 3)) => '(1 2)
+; (remove-last-item '(a b c d)) => '(a b c)
+; (remove-last-item '(hello)) => '()
 
 (define remove-last-item
   (lambda (lst)
@@ -36,13 +36,13 @@
 ; Purpose: Rotate the given list n times to the right.
 ; Pre-conditions: n is non-negative, list may be empty.
 ; Tests:
-; (rotate-nth '(1 2 3) 1) => (3 1 2)
-; (rotate-nth '(1 2 3 4) 2) => (3 4 1 2)
-; (rotate-nth '(a b c d) 4) => (a b c d) ; rotating len(list) times returns original list
-; (rotate-nth '(x) 3) => (x) ; single-element list stays unchanged
+; (rotate-nth '(1 2 3) 1) => '(3 1 2)
+; (rotate-nth '(1 2 3 4) 2) => '(3 4 1 2)
+; (rotate-nth '(a b c d) 4) => '(a b c d) ; rotating len(list) times returns original list
+; (rotate-nth '(x) 3) => '(x) ; single-element list stays unchanged
 
 (define rotate-nth
   (lambda (lst n)
-    (if (or (null? lst) (= n 0)) ; Base case: empty list or no rotations needed
+    (if (or (eq? lst '()) (= n 0)) ; Base case: empty list or no rotations needed
         lst
         (rotate-nth (cons (last-item lst) (remove-last-item lst)) (- n 1))))) ; Move last item to the front and decrease rotation count
